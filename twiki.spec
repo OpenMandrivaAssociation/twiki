@@ -3,7 +3,7 @@
 
 Name:       twiki
 Version:    4.3.2
-Release:    %mkrel 1
+Release:    %mkrel 2
 Summary:    The Open Source Enterprise Wiki and Web 2.0 Application Platform
 License:    GPL
 Group:      System/Servers
@@ -43,10 +43,10 @@ for file in robots.txt bin/setlib.cfg; do
     install -m 644 $file %{buildroot}%{_datadir}/%{name}/bin
 done
 
-for file in attach changes edit login logon manage oops preview rdiff \
-    rdiffauth register rename resetpasswd rest save search statistics \
+for file in attach configure changes edit login logon manage oops preview \
+    rdiff rdiffauth register rename resetpasswd rest save search statistics \
     upload view viewauth viewfile; do
-    install -m 755 bin/$file %{buildroot}%{_datadir}/%{name}/bin/$file.cgi
+    install -m 755 bin/$file %{buildroot}%{_datadir}/%{name}/bin
 done
 
 cp -pr bin/logos %{buildroot}%{_datadir}/%{name}/bin/
@@ -78,7 +78,7 @@ $TWiki::cfg{DefaultUrlHost} = 'http://localhost';
 
 # This is the 'cgi-bin' part of URLs used to access the TWiki bin
 # directory
-$TWiki::cfg{ScriptUrlPath} = '/twiki';
+$TWiki::cfg{ScriptUrlPath} = '/twiki/bin';
 
 # Attachments URL path e.g. /twiki/pub
 $TWiki::cfg{PubUrlPath} = '/twiki/pub';
@@ -99,10 +99,6 @@ $TWiki::cfg{PubDir} = '/var/lib/twiki/pub';
 # Directory where TWiki stores files that are required for the management
 # of TWiki, but are not normally required to be browsed from the web.
 $TWiki::cfg{WorkingDir} = '/var/lib/twiki/working';
-
-# Suffix of TWiki CGI scripts (e.g. .cgi or .pl). You may need to set this
-# if your webserver requires an extension.
-$TWiki::cfg{ScriptSuffix} = '.cgi';
 EOF
 pushd %{buildroot}%{_datadir}/%{name}/lib
 ln -sf ../../../..%{_sysconfdir}/%{name}/LocalSite.cfg .
@@ -120,17 +116,38 @@ install -d -m 755 %{buildroot}%{_webappconfdir}
 cat > %{buildroot}%{_webappconfdir}/%{name}.conf <<EOF
 # Twiki Apache configuration
 Alias /twiki/pub %{_localstatedir}/lib/%{name}/pub
-Alias /twiki %{_datadir}/%{name}/bin
+Alias /twiki %{_datadir}/%{name}
+
+<Directory %{_datadir}/%{name}>
+    Allow from all
+    DirectoryIndex bin/view
+</Directory>
 
 <Directory %{_datadir}/%{name}/bin>
-    Allow from all
     Options +ExecCGI
-    DirectoryIndex view.cgi
+    SetHandler cgi-script
+</Directory>
+
+<Directory %{_datadir}/%{name}/lib>
+    Deny from all
+</Directory>
+
+<Directory %{_datadir}/%{name}/locales>
+    Deny from all
+</Directory>
+
+<Directory %{_datadir}/%{name}/templates>
+    Deny from all
+</Directory>
+
+<Directory %{_datadir}/%{name}/tools>
+    Deny from all
 </Directory>
 
 <Directory %{_localstatedir}/lib/%{name}/pub>
     Allow from all
 </Directory>
+
 EOF
 
 %clean
