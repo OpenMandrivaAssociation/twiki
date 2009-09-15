@@ -165,5 +165,6 @@ rm -rf %{buildroot}
 %{_datadir}/twiki
 %attr(-,apache,apache) %{_localstatedir}/lib/twiki
 %config(noreplace) %{_webappconfdir}/%{name}.conf
-%config(noreplace) %{_sysconfdir}/%{name}
-
+%dir %{_sysconfdir}/%{name}
+%config(noreplace) %attr(-,apache,apache) %{_sysconfdir}/%{name}/LocalSite.cfg
+%config(noreplace) %attr(-,root,root) %{_sysconfdir}/%{name}/LocalLib.cfg
