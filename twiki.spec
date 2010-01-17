@@ -3,7 +3,7 @@
 
 Name:       twiki
 Version:    4.3.2
-Release:    %mkrel 2
+Release:    %mkrel 3
 Summary:    The Open Source Enterprise Wiki and Web 2.0 Application Platform
 License:    GPL
 Group:      System/Servers
@@ -154,10 +154,14 @@ EOF
 rm -rf %{buildroot}
 
 %post
+%if %mdkversion < 201010
 %_post_webapp
+%endif
 
 %postun
+%if %mdkversion < 201010
 %_postun_webapp
+%endif
 
 %files
 %defattr(-,root,root)
