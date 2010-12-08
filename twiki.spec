@@ -3,7 +3,7 @@
 
 Name:       twiki
 Version:    4.3.2
-Release:    %mkrel 3
+Release:    %mkrel 4
 Summary:    The Open Source Enterprise Wiki and Web 2.0 Application Platform
 License:    GPL
 Group:      System/Servers
