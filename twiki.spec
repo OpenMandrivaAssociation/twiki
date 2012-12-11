@@ -1,9 +1,15 @@
+%if %{_use_internal_dependency_generator}
+%define __noautoprov 'perl\\((.*)\\)'
+%define __noautoreq 'perl\\(TWiki(.*)\\)|perl\\(Assert\\)|perl\\(Monitor\\)'
+%else
 %define _provides_exceptions perl(.*)
 %define _requires_exceptions perl(\\(TWiki.*\\|Assert\\|Monitor\\))
 
+%endif
+
 Name:       twiki
 Version:    4.3.2
-Release:    %mkrel 4
+Release:    5
 Summary:    The Open Source Enterprise Wiki and Web 2.0 Application Platform
 License:    GPL
 Group:      System/Servers
@@ -12,7 +18,6 @@ Source:     http://prdownloads.sourceforge.net/twiki/TWiki-%{version}.tgz
 Requires:   apache
 Requires:   rcs
 BuildArch:  noarch
-BuildRoot:  %{_tmppath}/%{name}-%{version}
 
 %description
 Welcome to TWiki, a flexible, powerful, and easy to use enterprise wiki,
@@ -150,21 +155,7 @@ Alias /twiki %{_datadir}/%{name}
 
 EOF
 
-%clean
-rm -rf %{buildroot}
-
-%post
-%if %mdkversion < 201010
-%_post_webapp
-%endif
-
-%postun
-%if %mdkversion < 201010
-%_postun_webapp
-%endif
-
 %files
-%defattr(-,root,root)
 %doc AUTHORS COPYING COPYRIGHT LICENSE
 %{_datadir}/twiki
 %attr(-,apache,apache) %{_localstatedir}/lib/twiki
@@ -172,3 +163,4 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %attr(-,apache,apache) %{_sysconfdir}/%{name}/LocalSite.cfg
 %config(noreplace) %attr(-,root,root) %{_sysconfdir}/%{name}/LocalLib.cfg
+
