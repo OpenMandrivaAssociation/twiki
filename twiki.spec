@@ -9,7 +9,7 @@
 
 Name:       twiki
 Version:    4.3.2
-Release:    5
+Release:    6
 Summary:    The Open Source Enterprise Wiki and Web 2.0 Application Platform
 License:    GPL
 Group:      System/Servers
@@ -124,7 +124,7 @@ Alias /twiki/pub %{_localstatedir}/lib/%{name}/pub
 Alias /twiki %{_datadir}/%{name}
 
 <Directory %{_datadir}/%{name}>
-    Allow from all
+    Require all granted
     DirectoryIndex bin/view
 </Directory>
 
@@ -134,23 +134,23 @@ Alias /twiki %{_datadir}/%{name}
 </Directory>
 
 <Directory %{_datadir}/%{name}/lib>
-    Deny from all
+    Require all denied
 </Directory>
 
 <Directory %{_datadir}/%{name}/locales>
-    Deny from all
+    Require all denied
 </Directory>
 
 <Directory %{_datadir}/%{name}/templates>
-    Deny from all
+    Require all denied
 </Directory>
 
 <Directory %{_datadir}/%{name}/tools>
-    Deny from all
+    Require all denied
 </Directory>
 
 <Directory %{_localstatedir}/lib/%{name}/pub>
-    Allow from all
+    Require all granted
 </Directory>
 
 EOF
