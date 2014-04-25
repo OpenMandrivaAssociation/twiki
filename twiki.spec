@@ -8,13 +8,14 @@
 %endif
 
 Name:       twiki
-Version:    4.3.2
-Release:    6
+Version:    6.0.0
+Release:    1
 Summary:    The Open Source Enterprise Wiki and Web 2.0 Application Platform
+
 License:    GPL
 Group:      System/Servers
 URL:        http://www.twiki.org
-Source:     http://prdownloads.sourceforge.net/twiki/TWiki-%{version}.tgz
+Source:     http://sourceforge.net/projects/twiki/files/TWiki%20for%20all%20Platforms/TWiki-6.0.0/TWiki-%{version}.tgz
 Requires:   apache
 Requires:   rcs
 BuildArch:  noarch
@@ -39,7 +40,6 @@ chmod 644 lib/TWiki/Plugins/TWikiNetSkinPlugin.pm
 %build
 
 %install
-rm -rf %{buildroot}
 
 # non-writable content
 install -d -m 755 %{buildroot}%{_datadir}/%{name}/bin
@@ -163,4 +163,5 @@ EOF
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %attr(-,apache,apache) %{_sysconfdir}/%{name}/LocalSite.cfg
 %config(noreplace) %attr(-,root,root) %{_sysconfdir}/%{name}/LocalLib.cfg
+
 
