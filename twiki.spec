@@ -33,7 +33,7 @@ work together seamlessly and productively, and eliminates the one-webmaster
 syndrome of outdated intranet content.
 
 %prep
-%setup -q -c
+%setup -q -n %{name}
 chmod -R u+w .
 chmod 644 lib/TWiki/Plugins/TWikiNetSkinPlugin.pm
 
