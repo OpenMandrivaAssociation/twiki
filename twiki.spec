@@ -9,7 +9,7 @@
 
 Name:       twiki
 Version:    6.0.0
-Release:    1
+Release:    2
 Summary:    The Open Source Enterprise Wiki and Web 2.0 Application Platform
 
 License:    GPL
