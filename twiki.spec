@@ -14,7 +14,7 @@ Summary:    The Open Source Enterprise Wiki and Web 2.0 Application Platform
 
 License:    GPL
 Group:      System/Servers
-URL:        http://www.twiki.org
+URL:        https://www.twiki.org
 Source:     http://sourceforge.net/projects/twiki/files/TWiki%20for%20all%20Platforms/TWiki-6.0.0/TWiki-%{version}.tgz
 Requires:   apache
 Requires:   rcs
